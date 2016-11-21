@@ -1,49 +1,47 @@
-// Code here handles queries for specific characters in the database
-// In this case, the user submits a character's name... we then pass that character's name as a 
-// URL parameter. Our server then performs the search to grab that character from the Database.
+$(document).ready(function() {
+  var newItemInput = $("input.new-item");
+  var addTodoBtn = $(".new-item a.btn");
+  var todoContainer = $(".todo-container");
+  var todos = ["Learn MYSQL", "Learn Sequelize", "Learn Handlebars"];
 
-// when user hits the searchBtn
-$('#searchBtn').on("click", function(){
+  function initializeRows() {
+    var rowsToAdd = [];
+    for (var i = 0; i < todos.length; i++) {
+      rowsToAdd.push(createNewRow(todos[i]));
+    }
+    todoContainer.prepend(rowsToAdd);
+  }
 
-	// save the character they typed into the characterSearch input
-	var searchedCharacter = $("#characterSearch").val().trim();
+  initializeRows();
 
-	// replace any spaces between that character with no space 
-	// (effectively deleting the spaces). Make the string lowercase
-	searchedCharacter = searchedCharacter.replace(/\s+/g, '').toLowerCase();
+  function createNewRow(todoText) {
+    var newInputRow = $("<li>");
+    newInputRow.addClass("list-group-item");
+    var newTodoSpan = $("<span>");
+    newTodoSpan.text(todoText);
+    newInputRow.append(newTodoSpan);
+    var newDeleteBtn = $("<button>");
+    newDeleteBtn.addClass("delete");
+    newDeleteBtn.text("x");
+    newInputRow.append(newDeleteBtn);
+    return newInputRow;
+  }
 
-	// grab the current url of the browser's window (or tab)
-	var currentURL = window.location.origin;
+  addTodoBtn.on("click", handleNewBtnClick);
 
-	// run an AJAX GET-request for our servers api, 
-	// including the user's character in the url
-	$.get( currentURL + "/api/" + searchedCharacter, function( data ) {
-		// data is the first element in the returned data array
-		data = data[0];
+  function handleNewBtnClick() {
+    if (!newItemInput.val().trim()) {
+      return;
+    }
+    var todoToAdd = newItemInput.val().trim();
+    var newRow = createNewRow(todoToAdd);
+    newItemInput.val("");
+    $(".todo-container").prepend(newRow);
+  }
 
-		// log the data to our console
-		console.log(data);
-		// if the data is false (i.e. not there), then return an error message 
-		if(data == false){
-			$("#name").text("The force is not strong with this one. Your character was not found. ");
-			// don't show the stats section, since there are no stats to show
-			$("#stats").hide();
-		}
-		// otherwise
-		else {
-			// show the stats section
-			$("#stats").show();
-			// put the character name in the name tag,
-			$("#name").text(data.name);
-			// the role in the role tag,
-			$("#role").text(data.role);
-			// the age in the age tag,
-			$("#age").text(data.age);
-			// and the force points in the forcePoints tag
-			$("#forcePoints").text(data.forcePoints);					
-		}
+  $(document).on("click", "button.delete", handleTodoDelete);
 
-	});
-
-});	
-
+  function handleTodoDelete() {
+    $(this).parent().remove();
+  }
+});
