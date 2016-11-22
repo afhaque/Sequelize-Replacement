@@ -28,6 +28,12 @@ var Post = connection.define("Post", {
       // Do not allow the title to be empty
       notEmpty: true
     }
+  },
+  category: {
+    // Using Sequelize.STRING for the category
+    type: Sequelize.STRING,
+    // Giving our post a default value of Personal if one is not given
+    defaultValue: "Personal"
   }
 });
 

@@ -25,8 +25,8 @@ module.exports = function(app) {
   app.post("/api/todos", function(req, res) {
     // create takes an argument of an object describing the item we want to
     // insert into our table. In this case we just we pass in an object with a text
-    // and complete property
-    Todo.create({ text: req.body.todoText, complete: false }).then(function(dbTodo) {
+    // and complete property (req.body)
+    Todo.create(req.body).then(function(dbTodo) {
       // We have access to the new todo as an argument inside of the callback function
       res.json(dbTodo);
     });
@@ -45,11 +45,10 @@ module.exports = function(app) {
 
   // PUT route for updating todos
   app.put("/api/todos", function(req, res) {
-    var updatedTodo = { text: req.body.text };
     // update takes in two arguments:
     // 1. An object with keys and values we would like to update
     // 2. A "where" object describing which row or rows to target
-    Todo.update(updatedTodo, { where: { id: req.body.id } }).then(function(dbTodo) {
+    Todo.update(req.body, { where: { id: req.body.id } }).then(function(dbTodo) {
       // In this case dbTodo is an array containing the number of rows updated
       res.json(dbTodo);
     });

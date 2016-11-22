@@ -23,14 +23,10 @@ module.exports = function(app) {
 
   // POST route for saving a new todo
   app.post("/api/todos", function(req, res) {
-    var todo = {
-      text: req.body.todoText,
-      complete: false
-    };
     // create takes an argument of an object describing the item we want to
     // insert into our table. In this case we just we pass in an object with a text
-    // and complete property
-    Todo.create(todo).then(function(dbTodo) {
+    // and complete property (req.body)
+    Todo.create(req.body).then(function(dbTodo) {
       // We have access to the new todo as an argument inside of the callback function
       res.json(dbTodo);
     });
@@ -38,13 +34,11 @@ module.exports = function(app) {
 
   // DELETE route for deleting todos
   app.delete("/api/todos/:id", function(req, res) {
-    var id = req.params.id;
 
   });
 
   // PUT route for updating todos
   app.put("/api/todos", function(req, res) {
-    var todo = req.body;
 
   });
 };

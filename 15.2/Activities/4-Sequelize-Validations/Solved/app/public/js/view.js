@@ -134,7 +134,8 @@ $(document).ready(function() {
     //   return;
     // }
     var todo = {
-      todoText: newItemInput.val().trim()
+      text: newItemInput.val().trim(),
+      complete: false
     };
 
     $.post("/api/todos", todo, function() {

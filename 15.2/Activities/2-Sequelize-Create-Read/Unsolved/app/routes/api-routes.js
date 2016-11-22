@@ -18,12 +18,8 @@ module.exports = function(app) {
     // back to the user
   });
 
-  // POST route for saving a new todo
+  // POST route for saving a new todo. We can create todo with the data in req.body
   app.post("/api/todos", function(req, res) {
-    var todo = {
-      text: req.body.todoText,
-      complete: false
-    };
     // Write code here to create a new todo and save it to the database
     // and then res.json back the new todo to the user
 
@@ -31,13 +27,11 @@ module.exports = function(app) {
 
   // DELETE route for deleting todos
   app.delete("/api/todos/:id", function(req, res) {
-    var id = req.params.id;
 
   });
 
   // PUT route for updating todos
   app.put("/api/todos", function(req, res) {
-    var todo = req.body;
 
   });
 };

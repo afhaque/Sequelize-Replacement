@@ -114,11 +114,12 @@ $(document).ready(function() {
   // This function inserts a new todo into our database and then updates the view
   function insertTodo(event) {
     event.preventDefault();
-    if (!newItemInput.val().trim()) {
-      return;
-    }
+    // if (!newItemInput.val().trim()) {
+    //   return;
+    // }
     var todo = {
-      todoText: newItemInput.val().trim()
+      text: newItemInput.val().trim(),
+      complete: false
     };
 
     $.post("/api/todos", todo, function() {

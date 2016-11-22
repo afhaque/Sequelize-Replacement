@@ -1,61 +1,147 @@
-// *********************************************************************************
-// api-routes.js - this file offers a set of routes for displaying and saving data to the db
-// *********************************************************************************
+$(document).ready(function() {
+  // Getting a reference to the input field where user adds a new todo
+  var newItemInput = $("input.new-item");
+  // Our new todos will go inside the todoContainer
+  var todoContainer = $(".todo-container");
+  // Adding event listeners for deleting, editing, and adding todos
+  $(document).on("click", "button.delete", deleteTodo);
+  $(document).on("click", "button.complete", toggleComplete);
+  $(document).on("click", ".todo-item", editTodo);
+  $(document).on("keyup", ".todo-item", finishEdit);
+  $(document).on("blur", ".todo-item", cancelEdit);
+  $(document).on("submit", "#todo-form", insertTodo);
 
-// Dependencies
-// =============================================================
+  // Our initial todos array
+  var todos;
 
-// Requiring our Todo model
-var Todo = require("../models/todo");
+  // Getting todos from database when page loads
+  getTodos();
 
-// Routes
-// =============================================================
-module.exports = function(app) {
+  // This function resets the todos displayed with new todos from the database
+  function initializeRows() {
+    todoContainer.empty();
+    var rowsToAdd = [];
+    for (var i = 0; i < todos.length; i++) {
+      rowsToAdd.push(createNewRow(todos[i]));
+    }
+    todoContainer.prepend(rowsToAdd);
+  }
 
-  // GET route for getting all of the todos
-  app.get("/api/todos", function(req, res) {
-    // findAll returns all entries for a table when used with no arguments
-    Todo.findAll().then(function(dbTodo) {
-      // We have access to the todos as an argument inside of the callback function
-      res.json(dbTodo);
+  // This function grabs todos from the database and updates the view
+  function getTodos() {
+    $.get("/api/todos", function(data) {
+      console.log("Todos", data);
+      todos = data;
+      initializeRows();
     });
-  });
+  }
 
-  // POST route for saving a new todo
-  app.post("/api/todos", function(req, res) {
+  // This function deletes a todo when the user clicks the delete button
+  function deleteTodo() {
+    var id = $(this).data("id");
+    $.ajax({
+      method: "DELETE",
+      url: "/api/todos/" + id
+    }).done(function() {
+      getTodos();
+    });
+  }
+
+  // This function sets a todos complete attribute to the opposite of what
+  // it is and then runs the updateTodo function
+  function toggleComplete() {
+    var todo = $(this).parent().data("todo");
+    todo.complete = !todo.complete;
+    updateTodo(todo);
+  }
+
+  // This function handles showing the input box for a user to edit a todo
+  function editTodo() {
+    var currentTodo = $(this).data("todo");
+    $(this).children().hide();
+    $(this).children("input.edit").val(currentTodo.text);
+    $(this).children("input.edit").show();
+    $(this).children("input.edit").focus();
+  }
+
+  // This function starts updating a todo in the database if a user hits the "Enter Key"
+  // While in edit mode
+  function finishEdit(event) {
+    var updatedTodo;
+    if (event.key === "Enter") {
+      updatedTodo = {
+        id: $(this).data("todo").id,
+        text: $(this).children("input").val().trim()
+      };
+      $(this).blur();
+      updateTodo(updatedTodo);
+    }
+  }
+
+  // This function updates a todo in our database
+  function updateTodo(todo) {
+    $.ajax({
+      method: "PUT",
+      url: "/api/todos",
+      data: todo
+    }).done(function() {
+      getTodos();
+    });
+  }
+
+  // This function is called whenever a todo item is in edit mode and loses focus
+  // This cancels any edits being made
+  function cancelEdit() {
+    var currentTodo = $(this).data("todo");
+    $(this).children().hide();
+    $(this).children("input.edit").val(currentTodo.text);
+    $(this).children("span").show();
+    $(this).children("button").show();
+  }
+
+  // This function constructs a todo-item row
+  function createNewRow(todo) {
+    var newInputRow = $("<li>");
+    newInputRow.addClass("list-group-item todo-item");
+    var newTodoSpan = $("<span>");
+    newTodoSpan.text(todo.text);
+    if (todo.complete) {
+      newTodoSpan.css("text-decoration", "line-through");
+    }
+    newInputRow.append(newTodoSpan);
+    var newTodoInput = $("<input>");
+    newTodoInput.attr("type", "text");
+    newTodoInput.addClass("edit");
+    newTodoInput.css("display", "none");
+    newInputRow.append(newTodoInput);
+    var newDeleteBtn = $("<button>");
+    newDeleteBtn.addClass("delete btn btn-default");
+    newDeleteBtn.text("x");
+    newDeleteBtn.data("id", todo.id);
+    var newCompleteBtn = $("<button>");
+    newCompleteBtn.addClass("complete btn btn-default");
+    newCompleteBtn.text("✓");
+    newInputRow.append(newDeleteBtn);
+    newInputRow.append(newCompleteBtn);
+    newInputRow.data("todo", todo);
+    return newInputRow;
+  }
+
+  // This function inserts a new todo into our database and then updates the view
+  function insertTodo(event) {
+    event.preventDefault();
+    // if (!newItemInput.val().trim()) {
+    //   return;
+    // }
     var todo = {
-      text: req.body.todoText,
+      text: newItemInput.val().trim(),
       complete: false
     };
-    // create takes an argument of an object describing the item we want to
-    // insert into our table. In this case we just we pass in an object with a text
-    // and complete property
-    Todo.create(todo).then(function(dbTodo) {
-      // We have access to the new todo as an argument inside of the callback function
-      res.json(dbTodo);
-    });
-  });
 
-  // DELETE route for deleting todos
-  app.delete("/api/todos/:id", function(req, res) {
-    // destroy takes in one argument. A a "where" object describing which record
-    // or records to delete from our table.
-    Todo.destroy({ where: { id: req.params.id } }).then(function(dbTodo) {
-      // Unlike find and create methods, the argument returned in the callback function
-      // is an integer for how many records were affected
-      res.json(dbTodo);
+    $.post("/api/todos", todo, function() {
+      getTodos();
     });
-  });
+    newItemInput.val("");
+  }
 
-  // PUT route for updating todos
-  app.put("/api/todos", function(req, res) {
-    var updatedTodo = { text: req.body.text };
-    // update takes in two arguments:
-    // 1. An object with keys and values we would like to update
-    // 2. A "where" object describing which row or rows to target
-    Todo.update(updatedTodo, { where: { id: req.body.id } }).then(function(dbTodo) {
-      // In this case dbTodo is an array containing the number of rows updated
-      res.json(dbTodo);
-    });
-  });
-};
+});

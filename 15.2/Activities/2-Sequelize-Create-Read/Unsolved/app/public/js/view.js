@@ -5,6 +5,7 @@ $(document).ready(function() {
   var todoContainer = $(".todo-container");
   // Adding event listeners for deleting, editing, and adding todos
   $(document).on("click", "button.delete", deleteTodo);
+  $(document).on("click", "button.complete", toggleComplete);
   $(document).on("click", ".todo-item", editTodo);
   $(document).on("keyup", ".todo-item", finishEdit);
   $(document).on("blur", ".todo-item", cancelEdit);
@@ -44,6 +45,14 @@ $(document).ready(function() {
     }).done(function() {
       getTodos();
     });
+  }
+
+  // This function sets a todos complete attribute to the opposite of what
+  // it is and then runs the updateTodo function
+  function toggleComplete() {
+    var todo = $(this).parent().data("todo");
+    todo.complete = !todo.complete;
+    updateTodo(todo);
   }
 
   // This function handles showing the input box for a user to edit a todo
@@ -96,6 +105,9 @@ $(document).ready(function() {
     newInputRow.addClass("list-group-item todo-item");
     var newTodoSpan = $("<span>");
     newTodoSpan.text(todo.text);
+    if (todo.complete) {
+      newTodoSpan.css("text-decoration", "line-through");
+    }
     newInputRow.append(newTodoSpan);
     var newTodoInput = $("<input>");
     newTodoInput.attr("type", "text");
@@ -106,7 +118,11 @@ $(document).ready(function() {
     newDeleteBtn.addClass("delete btn btn-default");
     newDeleteBtn.text("x");
     newDeleteBtn.data("id", todo.id);
+    var newCompleteBtn = $("<button>");
+    newCompleteBtn.addClass("complete btn btn-default");
+    newCompleteBtn.text("✓");
     newInputRow.append(newDeleteBtn);
+    newInputRow.append(newCompleteBtn);
     newInputRow.data("todo", todo);
     return newInputRow;
   }
@@ -114,11 +130,12 @@ $(document).ready(function() {
   // This function inserts a new todo into our database and then updates the view
   function insertTodo(event) {
     event.preventDefault();
-    if (!newItemInput.val().trim()) {
-      return;
-    }
+    // if (!newItemInput.val().trim()) {
+    //   return;
+    // }
     var todo = {
-      todoText: newItemInput.val().trim()
+      text: newItemInput.val().trim(),
+      complete: false
     };
 
     $.post("/api/todos", todo, function() {

@@ -41,7 +41,6 @@ var orm = {
 
   addTodo: function(todo, callback) {
     var s = "INSERT INTO " + tableName + " (text, complete) VALUES (?,?)";
-
     connection.query(s, [
       todo.text, todo.complete
     ], function(err, result) {
