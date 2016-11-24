@@ -1,8 +1,8 @@
-// *********************************************************************************
+// *****************************************************************************
 // Server.js - This file is the initial starting point for the Node/Express server.
-// *********************************************************************************
-
-// Dependencies
+//
+// ******************************************************************************
+// *** Dependencies
 // =============================================================
 var express = require("express");
 var bodyParser = require("body-parser");
@@ -18,16 +18,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
-// static directory
-app.use(express.static("app/public"));
+// Static directory
+app.use(express.static("./public"));
 
-// Routes
-// =============================================================
+// Routes =============================================================
 
-require("./app/routes/html-routes.js")(app);
-require("./app/routes/api-routes.js")(app);
-// Starts the server to begin listening
-// =============================================================
+require("./routes/html-routes.js")(app);
+require("./routes/api-routes.js")(app);
+
+// Starting our express app
 app.listen(PORT, function() {
   console.log("App listening on PORT " + PORT);
 });
+
