@@ -3,7 +3,7 @@ module.exports = function(sequelize, DataTypes) {
     // Giving the Author model a name of type STRING
     // and age of type INTEGER
     name: DataTypes.STRING,
-    age: DataTypes.INTEGER
+    bio: DataTypes.TEXT
   },
   // Here we'll pass a second "classMethods" object into the define method
   // This is for any additional configuration we want to give our models
@@ -12,9 +12,7 @@ module.exports = function(sequelize, DataTypes) {
       classMethods: {
         associate: function(models) {
           // When we delete an author, we'll also delete their Posts
-          Author.hasMany(models.Post, {
-            onDelete: "cascade"
-          });
+          Author.hasMany(models.Post, { foreignKey: { allowNull: false } });
         }
       }
     });

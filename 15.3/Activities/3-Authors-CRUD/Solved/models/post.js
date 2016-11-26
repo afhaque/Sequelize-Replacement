@@ -11,11 +11,16 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       len: [1]
-    },
-    category: {
-      type: DataTypes.STRING,
-      defaultValue: "Personal"
     }
-  });
+  },
+    {
+      // We're saying that we want our Author to have Posts
+      classMethods: {
+        associate: function(models) {
+          // When we delete an author, we'll also delete their Posts
+          Post.belongsTo(models.Author, { onDelete: "cascade" });
+        }
+      }
+    });
   return Post;
 };

@@ -5,7 +5,7 @@
 // Dependencies
 // =============================================================
 
-// Requiring our Todo model
+// Requiring our models
 var db = require("../models");
 
 // Routes
@@ -14,7 +14,14 @@ module.exports = function(app) {
 
   // GET route for getting all of the posts
   app.get("/api/posts", function(req, res) {
-    db.Post.findAll().then(function(dbPost) {
+    var query = {};
+    if (req.query.author_id) {
+      query.AuthorId = req.query.author_id;
+    }
+    db.Post.findAll({
+      where: query,
+      include: [db.Author]
+    }).then(function(dbPost) {
       res.json(dbPost);
     });
   });
@@ -25,7 +32,7 @@ module.exports = function(app) {
       where: {
         category: req.params.category
       }
-    }).then(function(dbPost) {
+    }, { include: [db.Author] }).then(function(dbPost) {
       res.json(dbPost);
     });
   });
@@ -36,7 +43,8 @@ module.exports = function(app) {
       where: {
         id: req.params.id
       }
-    }).then(function(dbPost) {
+    }, { include: [db.Author] }).then(function(dbPost) {
+      console.log(dbPost);
       res.json(dbPost);
     });
   });

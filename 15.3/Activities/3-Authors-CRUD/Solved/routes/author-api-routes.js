@@ -1,20 +1,20 @@
-var db = require("./models");
+var db = require("../models");
 
 module.exports = function(app) {
   app.get("/api/authors", function(req, res) {
-    db.Authors.findAll().then(function(dbAuthor) {
+    db.Author.findAll({ include: [db.Post] }).then(function(dbAuthor) {
       res.json(dbAuthor);
     });
   });
 
   app.post("/api/authors", function(req, res) {
-    db.Authors.create(req.body).then(function(dbAuthor) {
+    db.Author.create(req.body).then(function(dbAuthor) {
       res.json(dbAuthor);
     });
   });
 
   app.delete("/api/authors/:id", function(req, res) {
-    db.Authors.delete({
+    db.Author.destroy({
       where: {
         id: req.params.id
       }
@@ -23,8 +23,8 @@ module.exports = function(app) {
     });
   });
 
-  app.update("/api/authors", function(req, res) {
-    db.Authors.update(req.body, {
+  app.put("/api/authors", function(req, res) {
+    db.Author.update(req.body, {
       where: {
         id: req.body.id
       }

@@ -14,6 +14,22 @@ form#cms {
   float: right;
   margin: 5px;
 }
-button.delete {
-  color: red;
+.author-container {
+  margin-top: 50px;
+}
+
+.author-list {
+  margin-top: 25px;
+}
+
+.blog-container {
+  margin-top: 30px;
+}
+
+.blog {
+  margin-top: 30px;
+}
+
+.hidden {
+  display: none;
 }
