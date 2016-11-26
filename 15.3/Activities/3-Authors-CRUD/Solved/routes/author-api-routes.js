@@ -7,6 +7,17 @@ module.exports = function(app) {
     });
   });
 
+  app.get("/api/authors/:id", function(req, res) {
+    db.Author.findOne({
+      include: [db.Post],
+      where: {
+        id: req.params.id
+      }
+    }).then(function(dbAuthor) {
+      res.json(dbAuthor);
+    });
+  });
+
   app.post("/api/authors", function(req, res) {
     db.Author.create(req.body).then(function(dbAuthor) {
       res.json(dbAuthor);

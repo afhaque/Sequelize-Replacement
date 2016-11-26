@@ -2,6 +2,7 @@ $(document).ready(function() {
   // Gets the part of the url that comes after the "?" (which we have if we're updating a post)
   var url = window.location.search;
   var postId;
+  var authorId;
   // Sets a flag for whether or not we're updating a post to be false initially
   var updating = false;
 
@@ -9,7 +10,13 @@ $(document).ready(function() {
   // In '?post_id=1', postId is 1
   if (url.indexOf("?post_id=") !== -1) {
     postId = url.split("=")[1];
-    getPostData(postId);
+    getPostData(postId, "post");
+  }
+  else if (url.indexOf("?author_id=") !== -1) {
+
+    authorId = url.split("=")[1];
+    $("#author").val(authorId);
+    // getPostData(authorId, "author");
   }
 
   // Getting the authors, and their posts
@@ -26,7 +33,7 @@ $(document).ready(function() {
   function handleFormSubmit(event) {
     event.preventDefault();
     // Wont submit the post if we are missing a body or a title
-    if (!titleInput.val().trim() || !bodyInput.val().trim()) {
+    if (!titleInput.val().trim() || !bodyInput.val().trim() || !authorSelect.val()) {
       return;
     }
     // Constructing a newPost object to hand to the database
@@ -53,19 +60,31 @@ $(document).ready(function() {
 
   // Submits a new post and brings user to blog page upon completion
   function submitPost(post) {
+    console.log(post)
     $.post("/api/posts", post, function() {
       window.location.href = "/blog";
     });
   }
 
   // Gets post data for a post if we're editing
-  function getPostData(id) {
-    $.get("/api/posts/" + id, function(data) {
+  function getPostData(id, type) {
+    var queryUrl;
+    switch (type) {
+      case "post":
+        queryUrl = "/api/posts/" + id;
+        break;
+      case "author":
+        queryUrl = "/api/authors/" + id;
+        break;
+      default:
+        return;
+    }
+    $.get(queryUrl, function(data) {
       if (data) {
         // If this post exists, prefill our cms forms with its data
         titleInput.val(data.title);
         bodyInput.val(data.body);
-        authorSelect.val(data.id);
+        authorSelect.val(data.AuthorId || data.id);
         // If we have a post with this id, set a flag for us to know to update the post
         // when we hit submit
         updating = true;
@@ -82,7 +101,6 @@ $(document).ready(function() {
   function renderAuthorList(data) {
     if (!data.length) {
       window.location.href = "/authors";
-      return;
     }
     $(".hidden").removeClass("hidden");
     var rowsToAdd = [];

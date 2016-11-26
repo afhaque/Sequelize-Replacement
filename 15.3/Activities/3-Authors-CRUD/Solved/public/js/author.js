@@ -1,12 +1,12 @@
 $(document).ready(function() {
   // Getting references to the name and bio inputs, as well as the author dropdown
-  var nameInput = $("#author");
-  var bioInput = $("#bio");
-  var authorList = $("ul.author-list");
+  var nameInput = $("#author-name");
+  var authorList = $("tbody");
+  var authorContainer = $(".author-container");
   // Adding event listeners to the form to create a new object, and the button to delete
   // an Author
   $(document).on("submit", "#author-form", handleAuthorFormSubmit);
-  $(document).on("click", ".btn-danger", handleDeleteButtonPress);
+  $(document).on("click", ".delete-author", handleDeleteButtonPress);
 
   // Getting the intiial list of Authors
   getAuthors();
@@ -15,16 +15,13 @@ $(document).ready(function() {
   function handleAuthorFormSubmit(event) {
     event.preventDefault();
     // Don't do anything if all fields haven't been filled out
-    if (!nameInput.val().trim() || !bioInput.val().trim()) {
+    if (!nameInput.val().trim().trim()) {
       return;
     }
     // Calling the upsertAuthor function and passing in the values of the name and bio
     // inputs
     upsertAuthor({
       name: nameInput
-        .val()
-        .trim(),
-      bio: bioInput
         .val()
         .trim()
     });
@@ -38,41 +35,49 @@ $(document).ready(function() {
 
   // Function for creating a new list row for authors
   function createAuthorRow(authorData) {
-    var listItem = $("<li>");
-    listItem.data("author", authorData);
-    listItem.addClass("list-group-item");
-    listItem.css({
-      padding: "15px",
-      height: "80px"
-    });
-    listItem.text(authorData.name);
-    listItem.css({
-      "line-height": 3,
-      "font-weight": 700
-    });
-    var seePostsLink = $("<a>");
-    seePostsLink.addClass("btn btn-primary");
-    seePostsLink.css({
-      float: "right",
-      "line-height": "2",
-      margin: "0 5px",
-      padding: "10px"
-    });
-    var deleteAuthor = $("<a>");
-    deleteAuthor.addClass("btn btn-danger");
-    deleteAuthor.text("DELETE AUTHOR");
-    deleteAuthor.css({
-      float: "right",
-      "line-height": "2",
-      margin: "0 5px",
-      padding: "10px"
-    });
-    var authorPath = "/blog?author_id=" + authorData.id;
-    seePostsLink.attr("href", authorPath);
-    seePostsLink.text("SEE POSTS");
-    listItem.append(deleteAuthor);
-    listItem.append(seePostsLink);
-    return listItem;
+    var newTr = $("<tr>");
+    newTr.data("author", authorData);
+    newTr.append("<td>" + authorData.name + "</td>");
+    newTr.append("<td> " + authorData.Posts.length + "</td>");
+    newTr.append("<td><a href='/blog?author_id=" + authorData.id + "'>Go to Posts</a></td>");
+    newTr.append("<td><a href='/cms?author_id=" + authorData.id + "'>Create a Post</a></td>");
+    newTr.append("<td><a style='cursor:pointer;color:red' class='delete-author'>Delete Author</a></td>");
+    return newTr;
+    // var listItem = $("<li>");
+    // listItem.data("author", authorData);
+    // listItem.addClass("list-group-item");
+    // listItem.css({
+    //   padding: "15px",
+    //   height: "80px"
+    // });
+    // listItem.text(authorData.name);
+    // listItem.css({
+    //   "line-height": 3,
+    //   "font-weight": 700
+    // });
+    // var seePostsLink = $("<a>");
+    // seePostsLink.addClass("btn btn-primary");
+    // seePostsLink.css({
+    //   float: "right",
+    //   "line-height": "2",
+    //   margin: "0 5px",
+    //   padding: "10px"
+    // });
+    // var deleteAuthor = $("<a>");
+    // deleteAuthor.addClass("btn btn-danger");
+    // deleteAuthor.text("DELETE AUTHOR");
+    // deleteAuthor.css({
+    //   float: "right",
+    //   "line-height": "2",
+    //   margin: "0 5px",
+    //   padding: "10px"
+    // });
+    // var authorPath = "/blog?author_id=" + authorData.id;
+    // seePostsLink.attr("href", authorPath);
+    // seePostsLink.text("SEE POSTS");
+    // listItem.append(deleteAuthor);
+    // listItem.append(seePostsLink);
+    // return listItem;
   }
 
   // Function for retrieving authors and getting them ready to be rendered to the page
@@ -84,15 +89,16 @@ $(document).ready(function() {
       }
       renderAuthorList(rowsToAdd);
       nameInput.val("");
-      bioInput.val("");
     });
   }
 
   // A function for rendering the list of authors to the page
   function renderAuthorList(rows) {
-    authorList.empty();
+    authorList.children().not(":last").remove();
+    authorContainer.children(".alert").remove();
     if (rows.length) {
-      authorList.append(rows);
+      console.log(rows);
+      authorList.prepend(rows);
     }
     else {
       renderEmpty();
@@ -104,12 +110,12 @@ $(document).ready(function() {
     var alertDiv = $("<div>");
     alertDiv.addClass("alert alert-danger");
     alertDiv.html("You must create an Author before you can create a Post.");
-    authorList.append(alertDiv);
+    authorContainer.append(alertDiv);
   }
 
   // Function for handling what happens when the delete button is pressed
   function handleDeleteButtonPress() {
-    var listItemData = $(this).parent("li").data("author");
+    var listItemData = $(this).parent("td").parent("tr").data("author");
     var id = listItemData.id;
     $.ajax({
       method: "DELETE",

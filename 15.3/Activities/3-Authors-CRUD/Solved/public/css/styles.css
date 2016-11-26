@@ -33,3 +33,9 @@ form#cms {
 .hidden {
   display: none;
 }
+
+#author-name {
+  width:100%;
+  height: 35px;
+  margin-top: 5px;
+}

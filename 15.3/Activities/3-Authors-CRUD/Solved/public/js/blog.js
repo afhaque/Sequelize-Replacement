@@ -32,7 +32,7 @@ $(document).ready(function() {
       console.log("Posts", data);
       posts = data;
       if (!posts || !posts.length) {
-        displayEmpty();
+        displayEmpty(author);
       }
       else {
         initializeRows();
@@ -122,11 +122,17 @@ $(document).ready(function() {
   }
 
   // This function displays a messgae when there are no posts
-  function displayEmpty() {
+  function displayEmpty(id) {
+    var query = window.location.search;
+    var partial = "";
+    if (id) {
+      partial = " for Author #" + id;
+    }
     blogContainer.empty();
     var messageh2 = $("<h2>");
     messageh2.css({ "text-align": "center", "margin-top": "50px" });
-    messageh2.html("No posts yet, navigate <a href='/cms'>here</a> in order to get started.");
+    messageh2.html("No posts yet" + partial + ", navigate <a href='/cms" + query +
+    "'>here</a> in order to get started.");
     blogContainer.append(messageh2);
   }
 
