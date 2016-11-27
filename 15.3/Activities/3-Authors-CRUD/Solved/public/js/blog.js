@@ -7,6 +7,7 @@ $(document).ready(function() {
   // Click events for the edit and delete buttons
   $(document).on("click", "button.delete", handlePostDelete);
   $(document).on("click", "button.edit", handlePostEdit);
+  // Variable to hold our posts
   var posts;
 
   // The code below handles the case where we want to get blog posts for a specific author
@@ -17,6 +18,7 @@ $(document).ready(function() {
     authorId = url.split("=")[1];
     getPosts(authorId);
   }
+  // If there's no authorId we just get all posts as usual
   else {
     getPosts();
   }

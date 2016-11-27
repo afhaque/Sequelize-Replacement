@@ -26,17 +26,6 @@ module.exports = function(app) {
     });
   });
 
-  // Get route for returning posts of a specific category
-  app.get("/api/posts/category/:category", function(req, res) {
-    db.Post.findAll({
-      where: {
-        category: req.params.category
-      }
-    }, { include: [db.Author] }).then(function(dbPost) {
-      res.json(dbPost);
-    });
-  });
-
   // Get rotue for retrieving a single post
   app.get("/api/posts/:id", function(req, res) {
     db.Post.findOne({

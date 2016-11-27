@@ -34,14 +34,4 @@ module.exports = function(app) {
     });
   });
 
-  app.put("/api/authors", function(req, res) {
-    db.Author.update(req.body, {
-      where: {
-        id: req.body.id
-      }
-    }).then(function(dbAuthor) {
-      res.json(dbAuthor);
-    });
-  });
-
 };

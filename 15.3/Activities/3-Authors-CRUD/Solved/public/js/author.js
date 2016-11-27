@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  // Getting references to the name and bio inputs, as well as the author dropdown
+  // Getting references to the name inout and author container, as well as the table body
   var nameInput = $("#author-name");
   var authorList = $("tbody");
   var authorContainer = $(".author-container");
@@ -14,12 +14,11 @@ $(document).ready(function() {
   // A function to handle what happens when the form is submitted to create a new Author
   function handleAuthorFormSubmit(event) {
     event.preventDefault();
-    // Don't do anything if all fields haven't been filled out
+    // Don't do anything if the name fields hasn't been filled out
     if (!nameInput.val().trim().trim()) {
       return;
     }
-    // Calling the upsertAuthor function and passing in the values of the name and bio
-    // inputs
+    // Calling the upsertAuthor function and passing in the value of the name input
     upsertAuthor({
       name: nameInput
         .val()
@@ -43,41 +42,6 @@ $(document).ready(function() {
     newTr.append("<td><a href='/cms?author_id=" + authorData.id + "'>Create a Post</a></td>");
     newTr.append("<td><a style='cursor:pointer;color:red' class='delete-author'>Delete Author</a></td>");
     return newTr;
-    // var listItem = $("<li>");
-    // listItem.data("author", authorData);
-    // listItem.addClass("list-group-item");
-    // listItem.css({
-    //   padding: "15px",
-    //   height: "80px"
-    // });
-    // listItem.text(authorData.name);
-    // listItem.css({
-    //   "line-height": 3,
-    //   "font-weight": 700
-    // });
-    // var seePostsLink = $("<a>");
-    // seePostsLink.addClass("btn btn-primary");
-    // seePostsLink.css({
-    //   float: "right",
-    //   "line-height": "2",
-    //   margin: "0 5px",
-    //   padding: "10px"
-    // });
-    // var deleteAuthor = $("<a>");
-    // deleteAuthor.addClass("btn btn-danger");
-    // deleteAuthor.text("DELETE AUTHOR");
-    // deleteAuthor.css({
-    //   float: "right",
-    //   "line-height": "2",
-    //   margin: "0 5px",
-    //   padding: "10px"
-    // });
-    // var authorPath = "/blog?author_id=" + authorData.id;
-    // seePostsLink.attr("href", authorPath);
-    // seePostsLink.text("SEE POSTS");
-    // listItem.append(deleteAuthor);
-    // listItem.append(seePostsLink);
-    // return listItem;
   }
 
   // Function for retrieving authors and getting them ready to be rendered to the page
