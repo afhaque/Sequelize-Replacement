@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<title>CMS - Express</title>
 	<!-- Latest compiled and minified CSS & JS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/styles.css" media="screen" title="no title">
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -14,6 +14,11 @@
 <body>
 	<div class="container">
 		<div class="row">
+			<div class="row">
+      <div class="col-md-2 col-sm-2">
+        <a class="btn btn-default" href="/blog">Go to Blog</a>
+      </div>
+    </div>
 			<div class="col-md-6 col-md-offset-3">
 				<form id="cms">
 					<div class="form-group">
@@ -31,7 +36,7 @@
   						</select>
 						</div>
 						<br />
-						<button type="submit" class="btn btn default submit">Submit</button>
+						<button type="submit" class="btn btn-success submit">Submit</button>
 					</div>
 				</form>
 			</div>

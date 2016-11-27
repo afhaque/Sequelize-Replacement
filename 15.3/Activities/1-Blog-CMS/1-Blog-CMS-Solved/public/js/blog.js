@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  /* global moment */
   // blogContainer holds all of our posts
   var blogContainer = $(".blog-container");
   var postCategorySelect = $("#category");
@@ -58,17 +59,17 @@ $(document).ready(function() {
     newPostPanelHeading.addClass("panel-heading");
     var deleteBtn = $("<button>");
     deleteBtn.text("x");
-    deleteBtn.addClass("delete");
+    deleteBtn.addClass("delete btn btn-danger");
     var editBtn = $("<button>");
     editBtn.text("EDIT");
-    editBtn.addClass("edit");
+    editBtn.addClass("edit btn btn-default");
     var newPostTitle = $("<h2>");
     var newPostDate = $("<small>");
     var newPostCategory = $("<h5>");
     newPostCategory.text(post.category);
     newPostCategory.css({
       float: "right",
-      color: "blue",
+      "font-weight": "700",
       "margin-top":
       "-15px"
     });
@@ -77,7 +78,9 @@ $(document).ready(function() {
     var newPostBody = $("<p>");
     newPostTitle.text(post.title + " ");
     newPostBody.text(post.body);
-    newPostDate.text(Date(post.createdAt));
+    var formattedDate = new Date(post.createdAt);
+    formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
+    newPostDate.text(formattedDate);
     newPostTitle.append(newPostDate);
     newPostPanelHeading.append(deleteBtn);
     newPostPanelHeading.append(editBtn);
@@ -115,7 +118,7 @@ $(document).ready(function() {
     blogContainer.empty();
     var messageh2 = $("<h2>");
     messageh2.css({ "text-align": "center", "margin-top": "50px" });
-    messageh2.html("No posts yet, navigate <a href='/cms'>here</a> in order to create a new post.");
+    messageh2.html("No posts yet for this category, navigate <a href='/cms'>here</a> in order to create a new post.");
     blogContainer.append(messageh2);
   }
 

@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  /* global moment */
   // blogContainer holds all of our posts
   var blogContainer = $(".blog-container");
   var postCategorySelect = $("#category");
@@ -19,7 +20,8 @@ $(document).ready(function() {
       posts = data;
       if (!posts || !posts.length) {
         displayEmpty();
-      } else {
+      }
+      else {
         initializeRows();
       }
     });
@@ -57,21 +59,28 @@ $(document).ready(function() {
     newPostPanelHeading.addClass("panel-heading");
     var deleteBtn = $("<button>");
     deleteBtn.text("x");
-    deleteBtn.addClass("delete");
+    deleteBtn.addClass("delete btn btn-danger");
     var editBtn = $("<button>");
     editBtn.text("EDIT");
-    editBtn.addClass("edit");
+    editBtn.addClass("edit btn btn-default");
     var newPostTitle = $("<h2>");
     var newPostDate = $("<small>");
     var newPostCategory = $("<h5>");
     newPostCategory.text(post.category);
-    newPostCategory.css({ float: "right", color: "blue", "margin-top": "-15px" });
+    newPostCategory.css({
+      float: "right",
+      "font-weight": "700",
+      "margin-top":
+      "-15px"
+    });
     var newPostPanelBody = $("<div>");
     newPostPanelBody.addClass("panel-body");
     var newPostBody = $("<p>");
     newPostTitle.text(post.title + " ");
     newPostBody.text(post.body);
-    newPostDate.text(Date(post.createdAt));
+    var formattedDate = new Date(post.createdAt);
+    formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
+    newPostDate.text(formattedDate);
     newPostTitle.append(newPostDate);
     newPostPanelHeading.append(deleteBtn);
     newPostPanelHeading.append(editBtn);
@@ -101,7 +110,7 @@ $(document).ready(function() {
       .parent()
       .parent()
       .data("post");
-    window.location.href = "/?post_id=" + currentPost.id;
+    window.location.href = "/cms?post_id=" + currentPost.id;
   }
 
   // This function displays a messgae when there are no posts
@@ -109,7 +118,7 @@ $(document).ready(function() {
     blogContainer.empty();
     var messageh2 = $("<h2>");
     messageh2.css({ "text-align": "center", "margin-top": "50px" });
-    messageh2.html("No posts yet, navigate <a href='/cms'>here</a> in order to create a new post.");
+    messageh2.html("No posts yet for this category, navigate <a href='/cms'>here</a> in order to create a new post.");
     blogContainer.append(messageh2);
   }
 

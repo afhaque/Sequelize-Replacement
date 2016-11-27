@@ -1,12 +1,12 @@
 $(document).ready(function() {
-  // Gets the part of the url that comes after the hostname (after localhost:8080)
+  // Gets a query string from our url (if this one)
   var url = window.location.search;
   var postId;
   // Sets a flag for whether or not we're updating a post to be false initially
   var updating = false;
 
-  // If we have this section in our url, we pull out the post id from the url In
-  // localhost:8080/?post_id=1, postId is 1
+  // If we have this section in our url, we pull out the post id from the url
+  // In localhost:8080/cms?post_id=1, postId is 1
   if (url.indexOf("?post_id=") !== -1) {
     postId = url.split("=")[1];
     getPostData(postId);
@@ -44,7 +44,7 @@ $(document).ready(function() {
     if (updating) {
       newPost.id = postId;
       updatePost(newPost);
-    } 
+    }
     else {
       submitPost(newPost);
     }
