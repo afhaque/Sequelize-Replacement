@@ -1,9 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
   var Author = sequelize.define("Author", {
     // Giving the Author model a name of type STRING
-    // and age of type INTEGER
-    name: DataTypes.STRING,
-    bio: DataTypes.TEXT
+    name: DataTypes.STRING
   },
   // Here we'll pass a second "classMethods" object into the define method
   // This is for any additional configuration we want to give our models
