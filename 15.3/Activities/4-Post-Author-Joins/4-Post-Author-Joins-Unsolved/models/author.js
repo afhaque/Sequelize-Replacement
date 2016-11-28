@@ -9,8 +9,8 @@ module.exports = function(sequelize, DataTypes) {
       // We're saying that we want our Author to have Posts
       classMethods: {
         associate: function(models) {
-          // When we delete an author, we'll also delete their Posts
-          Author.hasMany(models.Post, { foreignKey: { allowNull: false } });
+          // Associating Author with Posts
+          Author.hasMany(models.Post);
         }
       }
     });

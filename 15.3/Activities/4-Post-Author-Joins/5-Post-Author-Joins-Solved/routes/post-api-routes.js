@@ -18,6 +18,7 @@ module.exports = function(app) {
     if (req.query.author_id) {
       query.AuthorId = req.query.author_id;
     }
+    // 1. Add a join here to include all of the Authors to these posts
     db.Post.findAll({
       where: query,
       include: [db.Author]
@@ -28,11 +29,13 @@ module.exports = function(app) {
 
   // Get rotue for retrieving a single post
   app.get("/api/posts/:id", function(req, res) {
+    // 2. Add a join here to include the Author who wrote the Post
     db.Post.findOne({
       where: {
-        id: req.params.id
+        id: req.params.id,
+        include: [db.Author]
       }
-    }, { include: [db.Author] }).then(function(dbPost) {
+    }).then(function(dbPost) {
       console.log(dbPost);
       res.json(dbPost);
     });
