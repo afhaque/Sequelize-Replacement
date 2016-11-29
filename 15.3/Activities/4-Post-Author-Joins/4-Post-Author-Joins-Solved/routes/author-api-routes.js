@@ -14,9 +14,9 @@ module.exports = function(app) {
     // 2; Add a join to include all of the Author's Posts here
     db.Author.findOne({
       where: {
-        id: req.params.id,
-        include: [db.Post]
-      }
+        id: req.params.id
+      },
+      include: [db.Post]
     }).then(function(dbAuthor) {
       res.json(dbAuthor);
     });

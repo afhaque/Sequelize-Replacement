@@ -32,9 +32,9 @@ module.exports = function(app) {
     // 2. Add a join here to include the Author who wrote the Post
     db.Post.findOne({
       where: {
-        id: req.params.id,
-        include: [db.Author]
-      }
+        id: req.params.id
+      },
+      include: [db.Author]
     }).then(function(dbPost) {
       console.log(dbPost);
       res.json(dbPost);
