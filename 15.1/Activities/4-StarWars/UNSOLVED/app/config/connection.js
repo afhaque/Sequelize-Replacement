@@ -2,37 +2,33 @@
 // CONNECTION.JS - THIS FILE INITIATES THE CONNECTION TO MYSQL
 // *********************************************************************************
 
-var mysql = require('mysql');
+// Requiring mysql package
+var mysql = require("mysql");
 
-// Edit this connection to make it work with JawsDB.
+// Setting up our connection information
 var source = {
-
-    localhost: {
-        port: 3306,
-        host: 'localhost',
-        user: 'root',
-        password: "",
-        database: "starwars"
-    },
-    jawsDB: {
-
-        // TODO: Add your JawsDB connection info here
-    }
-}
+  localhost: {
+    port: 3306,
+    host: "localhost",
+    user: "root",
+    password: "password",
+    database: "starwars"
+  }
+};
 
 
-// TODO: connect your jawsDB connection witht he mysql connection.
+// Creating our connection
 var connection = mysql.createConnection(source.localhost);
 
 
-
-// Replace the connection code here with one to connect to you JawsDB connection.
+// Connecting to the database.
 connection.connect(function(err) {
-    if (err) {
-        console.error('error connecting: ' + err.stack);
-        return;
-    }
-    console.log('connected as id ' + connection.threadId);
+  if (err) {
+    console.error("error connecting: " + err.stack);
+    return;
+  }
+  console.log("connected as id " + connection.threadId);
 });
 
+// Exporting our connection
 module.exports = connection;

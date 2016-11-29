@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>FriendFinder</title>
+
+	<!-- Latest compiled and minified CSS & JS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+	<!-- Font Awesome Glyphicons -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+</head>
+<body>
+
+	<div class="container">
+		<div class="row">
+			<div class="jumbotron">
+				<h1 class=""><i class="fa fa-facebook-square" aria-hidden="true"></i> Friend Finder</h1>
+				<hr>
+				<h2 class="">Answer a few basic questions. </h2>
+				<h2 class="">Then find the friend with the greatest compatibility!</h2>
+				<br>
+
+				<div class="">
+					<a href="/survey"><button type="button" class="btn btn-lg btn-primary"><h4><span class="glyphicon glyphicon-list-alt"></span> Go to Survey</h4></button></a>	
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-3">
+				<h3>Admin Access!</h3>
+				<h4>Name (Required)</h4>
+				<input type="text" name="username" id="username" class="form-control" required >
+
+				<h4>Password (Required)</h4>
+				<input type="password" name="password" id="password" class="form-control" required >
+				<br>
+				<button id="submit">Submit!</button>
+				<br>
+			</div>
+		</div>
+
+
+	    <footer class="footer">
+		        <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/afhaque/friendfinder">GitHub Repo</a></p>
+	    </footer>
+
+	</div>
+
+	<script>
+	// define sign in function
+	function signIn(){
+		// grab data from form
+		var data = {
+			username: $('#username').val().trim(),
+			password: $('#password').val().trim()
+		}
+		// grab url to ajax call
+		var currentURL = window.location.origin + "/api/auth";
+
+		// post our login data
+		$.post(currentURL, data, function(results){
+			console.log(results);
+		});
+	}
+
+	// define call on button
+	$(document).on('click', '#submit', function(){
+		// sign in
+		signIn();
+		// prevent default behavior
+		return false;
+	})
+	</script>
+
+	
+</body>
+</html>
