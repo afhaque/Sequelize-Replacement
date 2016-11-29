@@ -1,8 +1,0 @@
-1. npm init, install mysql and sequelize packages.
-2. install sequelize-cli package globally - npm install -g sequelize-cli
-3. sequelize init
-4. open the config.json in the new config folder, edit in your mysql information (in the development object).
-5. create a model
-6. create sync for the models (require the models folder, and change the serlisten to do the db sync thing)
-7. change the slashes to the correct way in index.js under (var config = .....)
-8. YOU ALREADY HAVE TO HAVE THE DATABASE CREATED!!!!!
