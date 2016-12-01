@@ -18,8 +18,6 @@ module.exports = function(app) {
     db.Todo.findAll().then(function(dbTodo) {
       // We have access to the todos as an argument inside of the callback function
       res.json(dbTodo);
-    }).catch(function(err) {
-      console.log(err);
     });
   });
 
@@ -31,8 +29,6 @@ module.exports = function(app) {
     db.Todo.create(req.body).then(function(dbTodo) {
       // We have access to the new todo as an argument inside of the callback function
       res.json(dbTodo);
-    }).catch(function(err) {
-      console.log(err);
     });
   });
 
@@ -46,8 +42,6 @@ module.exports = function(app) {
       }
     }).then(function(dbTodo) {
       res.json(dbTodo);
-    }).catch(function(err) {
-      console.log(err);
     });
 
   });
@@ -59,8 +53,6 @@ module.exports = function(app) {
     // we use where to describe which objects we want to update
     db.Todo.update(req.body, { where: { id: req.body.id } }).then(function(dbTodo) {
       res.json(dbTodo);
-    }).catch(function(err) {
-      console.log(err);
     });
   });
 };

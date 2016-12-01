@@ -42,8 +42,7 @@ module.exports = function(app) {
 
   // PUT route for updating todos. We can get the updated todo data from req.body
   app.put("/api/todos", function(req, res) {
-    // Use the sequelize update method to update a todo
-    // req.body will contain the id of the todo we need to update, and the new text
-
+    // Use the sequelize update method to update a todo to be equal to the value of req.body
+    // req.body will contain the id of the todo we need to update
   });
 };
