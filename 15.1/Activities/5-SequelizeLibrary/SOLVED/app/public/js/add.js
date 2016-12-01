@@ -1,7 +1,8 @@
 // The code in add.js handles what happens when the user clicks the "Add a book" button.
 
 // When user clicks addBtn
-$("#addBtn").on("click", function() {
+$("#addBtn").on("click", function(event) {
+  event.preventDefault();
 
   // Make a newBook object
   var newBook = {
@@ -11,11 +12,8 @@ $("#addBtn").on("click", function() {
     pages: $("#pages").val().trim()
   };
 
-  // Grab the url from the browser window
-  var currentURL = window.location.origin;
-
   // Send an AJAX POST-request with jQuery
-  $.post(currentURL + "/api/new", newBook)
+  $.post("/api/new", newBook)
     // On success, run the following code
     .done(function(data) {
       // Log the data we found
@@ -28,6 +26,4 @@ $("#addBtn").on("click", function() {
   $("#genre").val("");
   $("#pages").val("");
 
-  // Returning false will stop the page from reloading
-  return false;
 });

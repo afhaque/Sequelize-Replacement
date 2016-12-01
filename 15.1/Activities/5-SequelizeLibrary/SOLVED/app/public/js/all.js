@@ -1,8 +1,6 @@
-// Grab the current URL of the page
-var currentURL = window.location.origin;
 
 // Make a get request to our api route that will return every book
-$.get(currentURL + "/api/all", function(data) {
+$.get("/api/all", function(data) {
 
   // For each book that our server sends us back
   for (var i = 0; i < data.length; i++) {

@@ -1,8 +1,8 @@
-// Grab the url from the browser window
-var currentURL = window.location.origin;
+/* global moment */
 
 // When user clicks addBtn
-$("#chirpSubmit").on("click", function() {
+$("#chirpSubmit").on("click", function(event) {
+  event.preventDefault();
 
   // Make a newChirp object
   var newChirp = {
@@ -14,7 +14,7 @@ $("#chirpSubmit").on("click", function() {
   console.log(newChirp);
 
   // Send an AJAX POST-request with jQuery
-  $.post(currentURL + "/api/new", newChirp)
+  $.post("/api/new", newChirp)
     // On success, run the following code
     .done(function() {
 
@@ -32,13 +32,10 @@ $("#chirpSubmit").on("click", function() {
   // Empty each input box by replacing the value with an empty string
   $("#author").val("");
   $("#chirpBox").val("");
-
-  // Returning false will stop the page from reloading
-  return false;
 });
 
 // When the page loads, grab all of our chirps
-$.get(currentURL + "/api/all", function(data) {
+$.get("/api/all", function(data) {
 
   if (data.length !== 0) {
 

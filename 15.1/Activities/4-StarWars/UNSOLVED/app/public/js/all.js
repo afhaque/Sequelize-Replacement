@@ -1,15 +1,8 @@
 // Code here handles what how the page displays all of the characters
 // It pings the server. The server then pings the database and displays all of the characters.
 
-// grab the current URL of the page
-var currentURL = window.location.origin;
-
-// log the currentURL of the page, and add /api,
-// showing the url we'll be making our get request to
-console.log(currentURL + "/api");
-
 // make a get request to our api to grab every character
-$.get(currentURL + "/api", function(data) {
+$.get("/api", function(data) {
 
   // for each character that our server sends us back
   for (var i = 0; i < data.length; i++) {

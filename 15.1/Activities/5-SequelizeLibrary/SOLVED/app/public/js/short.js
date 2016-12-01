@@ -1,8 +1,5 @@
-// Grab the current URL of the page
-var currentURL = window.location.origin;
-
 // Make a get request to our api route that will return every "short" book (150 pages or less)
-$.get(currentURL + "/api/books/short", function(data) {
+$.get("/api/books/short", function(data) {
 
   // For each book that our server sends us back
   for (var i = 0; i < data.length; i++) {

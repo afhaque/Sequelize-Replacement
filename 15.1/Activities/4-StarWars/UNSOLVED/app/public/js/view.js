@@ -12,12 +12,9 @@ $("#searchBtn").on("click", function() {
   // (effectively deleting the spaces). Make the string lowercase
   searchedCharacter = searchedCharacter.replace(/\s+/g, "").toLowerCase();
 
-  // grab the current url of the browser's window (or tab)
-  var currentURL = window.location.origin;
-
   // run an AJAX GET-request for our servers api,
   // including the user's character in the url
-  $.get(currentURL + "/api/" + searchedCharacter, function(data) {
+  $.get("/api/" + searchedCharacter, function(data) {
     // data is the first element in the returned data array
     data = data[0];
 

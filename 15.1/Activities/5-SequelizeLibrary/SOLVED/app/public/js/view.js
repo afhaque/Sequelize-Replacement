@@ -1,14 +1,12 @@
-// Grab the current url of the browser's window
-var currentURL = window.location.origin;
-
 // When user hits the searchBtn
-$("#searchBtn").on("click", function() {
+$("#searchBtn").on("click", function(event) {
+  event.preventDefault();
 
   // Save the book they typed into the bookSearch input
   var bookSearched = $("#bookSearch").val().trim();
 
   // Make an AJAX get request to our api, including the user's book in the url
-  $.get(currentURL + "/api/" + bookSearched, function(data) {
+  $.get("/api/" + bookSearched, function(data) {
 
     console.log(data);
     // Call our renderBooks function to add our books to the page
@@ -25,7 +23,7 @@ $("#authorSearchBtn").on("click", function() {
   var authorSearched = $("#authorSearch").val().trim();
 
   // Make an AJAX get request to our api, including the user's book in the url
-  $.get(currentURL + "/api/author/" + authorSearched, function(data) {
+  $.get("/api/author/" + authorSearched, function(data) {
 
     // Log the data to the console
     console.log(data);
@@ -43,7 +41,7 @@ $("#genreSearchBtn").on("click", function() {
   var genreSearched = $("#genreSearch").val().trim();
 
   // Make an AJAX get request to our api, including the user's book in the url
-  $.get(currentURL + "/api/genre/" + genreSearched, function(data) {
+  $.get("/api/genre/" + genreSearched, function(data) {
 
     console.log(data);
     // Call our renderBooks function to add our books to the page
@@ -79,7 +77,7 @@ function renderBooks(data) {
         id: $(this).attr("data-id")
       };
 
-      $.post(currentURL + "/api/delete", info)
+      $.post("/api/delete", info)
         // On success, run the following code
         .done(function(deldata) {
           // Log the data we found

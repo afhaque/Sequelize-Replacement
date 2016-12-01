@@ -2,7 +2,8 @@
 // Effectively it takes the form inputs then sends it to the server to save in the DB.
 
 // when user clicks addBtn
-$("#addBtn").on("click", function() {
+$("#addBtn").on("click", function(event) {
+  event.preventDefault();
 
   // make a newCharacter obj
   var newCharacter = {
@@ -34,9 +35,5 @@ $("#addBtn").on("click", function() {
   $("#role").val("");
   $("#age").val("");
   $("#forcepoints").val("");
-
-  // returning false will stop the page from reloading
-  // by preventing the form's default behavior.
-  return false;
 
 });
