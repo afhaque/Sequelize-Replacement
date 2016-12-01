@@ -2,11 +2,11 @@
 // In this case, the user submits a character's name... we then pass that character's name as a
 // URL parameter. Our server then performs the search to grab that character from the Database.
 
-// when user hits the searchBtn
-$("#searchBtn").on("click", function() {
+// when user hits the search-btn
+$("#search-btn").on("click", function() {
 
-  // save the character they typed into the characterSearch input
-  var searchedCharacter = $("#characterSearch").val().trim();
+  // save the character they typed into the character-search input
+  var searchedCharacter = $("#character-search").val().trim();
 
   // replace any spaces between that character with no space
   // (effectively deleting the spaces). Make the string lowercase
@@ -36,8 +36,8 @@ $("#searchBtn").on("click", function() {
       $("#role").text(data.role);
       // the age in the age tag,
       $("#age").text(data.age);
-      // and the force points in the forcePoints tag
-      $("#forcePoints").text(data.forcePoints);
+      // and the force points in the force-points tag
+      $("#force-points").text(data.forcePoints);
     }
 
   });

@@ -8,14 +8,14 @@ $.get("/api/books/short", function(data) {
     // Add a class to this div: 'well'
     wellSection.addClass("well");
     // Add an id to the well to mark which well it is
-    wellSection.attr("id", "bookWell-" + i);
+    wellSection.attr("id", "book-well-" + i);
     // Append the well to the well section
-    $("#wellSection").append(wellSection);
+    $("#well-section").append(wellSection);
 
     // Now  we add our book data to the well we just placed on the page
-    $("#bookWell-" + i).append("<h2>" + (i + 1) + ". " + data[i].title + "</h2>");
-    $("#bookWell-" + i).append("<h3>Author: " + data[i].author + "</h4>");
-    $("#bookWell-" + i).append("<h3>Genre: " + data[i].genre + "</h4>");
-    $("#bookWell-" + i).append("<h3>Pages: " + data[i].pages + "</h4>");
+    $("#book-well-" + i).append("<h2>" + (i + 1) + ". " + data[i].title + "</h2>");
+    $("#book-well-" + i).append("<h3>Author: " + data[i].author + "</h4>");
+    $("#book-well-" + i).append("<h3>Genre: " + data[i].genre + "</h4>");
+    $("#book-well-" + i).append("<h3>Pages: " + data[i].pages + "</h4>");
   }
 });

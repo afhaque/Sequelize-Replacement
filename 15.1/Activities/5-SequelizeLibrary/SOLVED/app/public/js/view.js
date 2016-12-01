@@ -1,9 +1,9 @@
-// When user hits the searchBtn
-$("#searchBtn").on("click", function(event) {
+// When user hits the search-btn
+$("#search-btn").on("click", function(event) {
   event.preventDefault();
 
-  // Save the book they typed into the bookSearch input
-  var bookSearched = $("#bookSearch").val().trim();
+  // Save the book they typed into the book-search input
+  var bookSearched = $("#book-search").val().trim();
 
   // Make an AJAX get request to our api, including the user's book in the url
   $.get("/api/" + bookSearched, function(data) {
@@ -16,13 +16,13 @@ $("#searchBtn").on("click", function(event) {
 
 });
 
-// When user hits the searchBtn
-$("#authorSearchBtn").on("click", function() {
+// When user hits the author-search-btn
+$("#author-search-btn").on("click", function() {
 
-  // Save the book they typed into the bookSearch input
-  var authorSearched = $("#authorSearch").val().trim();
+  // Save the authorthey typed into the author-search input
+  var authorSearched = $("#author-search").val().trim();
 
-  // Make an AJAX get request to our api, including the user's book in the url
+  // Make an AJAX get request to our api, including the user's author in the url
   $.get("/api/author/" + authorSearched, function(data) {
 
     // Log the data to the console
@@ -34,13 +34,13 @@ $("#authorSearchBtn").on("click", function() {
 
 });
 
-// When user hits the searchBtn
-$("#genreSearchBtn").on("click", function() {
+// When user hits the genre-search-btn
+$("#genre-search-btn").on("click", function() {
 
-  // Save the book they typed into the bookSearch input
-  var genreSearched = $("#genreSearch").val().trim();
+  // Save the book they typed into the genre-search input
+  var genreSearched = $("#genre-search").val().trim();
 
-  // Make an AJAX get request to our api, including the user's book in the url
+  // Make an AJAX get request to our api, including the user's genre in the url
   $.get("/api/genre/" + genreSearched, function(data) {
 
     console.log(data);

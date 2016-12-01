@@ -11,19 +11,19 @@ $.get("/api", function(data) {
     // add a class to this div: 'well'
     wellSection.addClass("well");
     // add an id to the well to mark which well it is
-    wellSection.attr("id", "characterWell-" + i);
+    wellSection.attr("id", "character-well-" + i);
     // append the well to the well section
-    $("#wellSection").append(wellSection);
+    $("#well-section").append(wellSection);
 
     // Now add all of our character data to the well we just placed on the page
 
     // make the name an h2,
-    $("#characterWell-" + i).append("<h2>" + data[i].name + "</h2>");
+    $("#character-well-" + i).append("<h2>" + data[i].name + "</h2>");
     // the role an h3,
-    $("#characterWell-" + i).append("<h3>Role: " + data[i].role + "</h4>");
+    $("#character-well-" + i).append("<h3>Role: " + data[i].role + "</h4>");
     // the age an h3,
-    $("#characterWell-" + i).append("<h3>Age: " + data[i].age + "</h4>");
+    $("#character-well-" + i).append("<h3>Age: " + data[i].age + "</h4>");
     // and the forcepoints an h3.
-    $("#characterWell-" + i).append("<h3>Force Points: " + data[i].forcePoints + "</h4>");
+    $("#character-well-" + i).append("<h3>Force Points: " + data[i].forcePoints + "</h4>");
   }
 });

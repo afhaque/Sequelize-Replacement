@@ -1,13 +1,13 @@
 /* global moment */
 
-// When user clicks addBtn
-$("#chirpSubmit").on("click", function(event) {
+// When user clicks add-btn
+$("#chirp-submit").on("click", function(event) {
   event.preventDefault();
 
   // Make a newChirp object
   var newChirp = {
     author: $("#author").val().trim(),
-    body: $("#chirpBox").val().trim(),
+    body: $("#chirp-box").val().trim(),
     created_at: moment().format("YYYY-MM-DD HH:mm:ss")
   };
 
@@ -25,13 +25,13 @@ $("#chirpSubmit").on("click", function(event) {
       row.append("<p>" + newChirp.body + "</p>");
       row.append("<p>At " + moment(newChirp.created_at).format("h:mma on dddd") + "</p>");
 
-      $("#chirpArea").prepend(row);
+      $("#chirp-area").prepend(row);
 
     });
 
   // Empty each input box by replacing the value with an empty string
   $("#author").val("");
-  $("#chirpBox").val("");
+  $("#chirp-box").val("");
 });
 
 // When the page loads, grab all of our chirps
@@ -48,7 +48,7 @@ $.get("/api/all", function(data) {
       row.append("<p>" + data[i].body + "</p>");
       row.append("<p>At " + moment(data[i].created_at).format("h:mma on dddd") + "</p>");
 
-      $("#chirpArea").prepend(row);
+      $("#chirp-area").prepend(row);
 
     }
 

@@ -1,7 +1,7 @@
 // The code in add.js handles what happens when the user clicks the "Add a book" button.
 
-// When user clicks addBtn
-$("#addBtn").on("click", function(event) {
+// When user clicks add-btn
+$("#add-btn").on("click", function(event) {
   event.preventDefault();
 
   // Make a newBook object
