@@ -20,11 +20,11 @@
 				<h1>Express Library</h1>
 				<h3>Books Books Books!</h3>
 				<hr>
-				<a href="/"><button type="button" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-eye-open"></span> Search Books</button></a>
-				<a href="/add"><button type="button" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-plus"></span> Add New Book</button></a>
-				<a href="/all"><button type="button" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-th-list"></span> All Books</button></a>
-				<a href="/long"><button type="button" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-th-list"></span> Long Books</button></a>
-        <a href="/short"><button type="button" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-th-list"></span> Short Books</button></a>
+				<a href="/" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-eye-open"></span> Search Books</a>
+        <a href="/add" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-plus"></span> Add New Book</a>
+        <a href="/all" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-th-list"></span> All Books</a>
+        <a href="/long" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-th-list"></span> Long Books</a>
+        <a href="/short" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-th-list"></span> Short Books</a>
 			</div>
 			<div class="row">
 
@@ -35,10 +35,10 @@
 							<h3 class="panel-title"><strong>Book Search</strong></h3>
 						</div>
 						<div class="panel-body">
-							<input type="text" id="bookSearch" class="form-control" >
+							<input type="text" id="book-search" class="form-control" >
 							<br>
 							<div class="text-right">
-								<button type="submit" class="btn btn-primary btn-md" id="searchBtn"><span class="glyphicon glyphicon-search"></span> Search</button>
+								<button class="btn btn-primary btn-md" id="search-btn"><span class="glyphicon glyphicon-search"></span> Search</button>
 							</div>
 						</div>
 					</div>
@@ -48,10 +48,10 @@
 							<h3 class="panel-title"><strong>Author Search</strong></h3>
 						</div>
 						<div class="panel-body">
-							<input type="text" id="authorSearch" class="form-control" >
+							<input type="text" id="author-search" class="form-control">
 							<br>
 							<div class="text-right">
-								<button type="submit" class="btn btn-primary btn-md" id="authorSearchBtn"><span class="glyphicon glyphicon-search"></span> Search</button>
+								<button class="btn btn-primary btn-md" id="author-search-btn"><span class="glyphicon glyphicon-search"></span> Search</button>
 							</div>
 						</div>
 					</div>
@@ -61,10 +61,10 @@
 							<h3 class="panel-title"><strong>Genre Search</strong></h3>
 						</div>
 						<div class="panel-body">
-							<input type="text" id="genreSearch" class="form-control" >
+							<input type="text" id="genre-search" class="form-control">
 							<br>
 							<div class="text-right">
-								<button type="submit" class="btn btn-primary btn-md" id="genreSearchBtn"><span class="glyphicon glyphicon-search"></span> Search</button>
+								<button class="btn btn-primary btn-md" id="genre-search-btn"><span class="glyphicon glyphicon-search"></span> Search</button>
 							</div>
 						</div>
 					</div>

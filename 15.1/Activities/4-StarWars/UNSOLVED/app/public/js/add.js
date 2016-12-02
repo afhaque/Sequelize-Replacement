@@ -1,8 +1,9 @@
 // Code here handles what happens when a user submits a new character on the form.
 // Effectively it takes the form inputs then sends it to the server to save in the DB.
 
-// when user clicks addBtn
-$("#addBtn").on("click", function() {
+// when user clicks add-btn
+$("#add-btn").on("click", function(event) {
+  event.preventDefault();
 
   // make a newCharacter obj
   var newCharacter = {
@@ -12,15 +13,12 @@ $("#addBtn").on("click", function() {
     role: $("#role").val().trim(),
     // age from age input
     age: $("#age").val().trim(),
-    // points from forcepoints input
-    forcePoints: $("#forcepoints").val().trim()
+    // points from force-points input
+    forcePoints: $("#force-points").val().trim()
   };
 
-  // grab the url from the window/tab
-  var currentURL = window.location.origin;
-
   // send an AJAX POST-request with jQuery
-  $.post(currentURL + "/api/new", newCharacter)
+  $.post("/api/new", newCharacter)
     // on success, run this callback
     .done(function(data) {
       // log the data we found
@@ -33,10 +31,6 @@ $("#addBtn").on("click", function() {
   $("#name").val("");
   $("#role").val("");
   $("#age").val("");
-  $("#forcepoints").val("");
-
-  // returning false will stop the page from reloading
-  // by preventing the form's default behavior.
-  return false;
+  $("#force-points").val("");
 
 });
