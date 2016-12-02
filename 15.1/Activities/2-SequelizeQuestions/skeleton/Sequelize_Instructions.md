@@ -1,6 +1,6 @@
 * **Instructions:**
 
-- Spend the next few ~15 minutes with your partner answering the following questions. You should be using the Sequelize Documentation (and whatever other references you find online).
+- Spend the next few minutes with your partner answering the following questions. You should be using the Sequelize Documentation (and whatever other references you find online).
 
 	- Answer: What is Sequelize?
 
