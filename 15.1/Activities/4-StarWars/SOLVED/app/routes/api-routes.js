@@ -18,7 +18,7 @@ module.exports = function(app) {
 
       // Then display the JSON for ONLY that character.
       // (Note how we're using the ORM here to run our searches)
-      Character.findAll({
+      Character.findOne({
         where: {
           routeName: req.params.characters
         }

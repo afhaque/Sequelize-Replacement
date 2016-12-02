@@ -15,9 +15,6 @@ $("#search-btn").on("click", function() {
   // run an AJAX GET-request for our servers api,
   // including the user's character in the url
   $.get("/api/" + searchedCharacter, function(data) {
-    // data is the first element in the returned data array
-    data = data[0];
-
     // log the data to our console
     console.log(data);
     // if the data is false (i.e. not there), then return an error message
