@@ -17,6 +17,7 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname + "/../public/blog.html"));
   });
 
+  // Route to the cms page
   app.get("/cms", function(req, res) {
     res.sendFile(path.join(__dirname + "/../public/cms.html"));
   });
