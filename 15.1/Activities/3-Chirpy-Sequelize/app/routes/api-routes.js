@@ -18,7 +18,7 @@ module.exports = function(app) {
     // Sequelize queries are aynchronous, which helps with percieved speed.
     // If we want something to be guaranteed to happen after the query, we'll use
     // the .then function
-    Chirp.findAll().then(function(results) {
+    Chirp.findAll({}).then(function(results) {
       // results are available to us inside the .then
       res.json(results);
     });

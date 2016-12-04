@@ -12,11 +12,12 @@ module.exports = function(app) {
 
   // GET route for getting all of the todos
   app.get("/api/todos", function(req, res) {
-      // findAll returns all entries for a table when used with no arguments
-    db.Todo.findAll().then(function(dbTodo) {
+    // findAll returns all entries for a table when used with no options
+    db.Todo.findAll({}).then(function(dbTodo) {
       // We have access to the todos as an argument inside of the callback function
       res.json(dbTodo);
     });
+
   });
 
   // POST route for saving a new todo
@@ -28,9 +29,10 @@ module.exports = function(app) {
       text: req.body.text,
       complete: req.body.complete
     }).then(function(dbTodo) {
-        // We have access to the new todo as an argument inside of the callback function
+      // We have access to the new todo as an argument inside of the callback function
       res.json(dbTodo);
     });
+
   });
 
   // DELETE route for deleting todos. We can get the id of the todo to be deleted
@@ -52,7 +54,10 @@ module.exports = function(app) {
   app.put("/api/todos", function(req, res) {
     // Update takes in two arguments, an object describing the properties we want to update,
     // and another "where" object describing the todos we want to update
-    db.Todo.update(req.body, {
+    db.Todo.update({
+      text: req.body.text,
+      complete: req.body.complete
+    }, {
       where: {
         id: req.body.id
       }
@@ -60,5 +65,6 @@ module.exports = function(app) {
     .then(function(dbTodo) {
       res.json(dbTodo);
     });
+
   });
 };

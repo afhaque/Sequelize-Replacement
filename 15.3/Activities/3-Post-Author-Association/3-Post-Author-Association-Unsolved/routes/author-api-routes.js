@@ -2,7 +2,7 @@ var db = require("../models");
 
 module.exports = function(app) {
   app.get("/api/authors", function(req, res) {
-    db.Author.findAll().then(function(dbAuthor) {
+    db.Author.findAll({}).then(function(dbAuthor) {
       res.json(dbAuthor);
     });
   });

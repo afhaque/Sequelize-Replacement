@@ -14,7 +14,7 @@ module.exports = function(app) {
   // Get all books
   app.get("/api/all", function(req, res) {
 
-    Book.findAll().then(function(results) {
+    Book.findAll({}).then(function(results) {
       res.json(results);
     });
 

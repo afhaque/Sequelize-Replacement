@@ -14,8 +14,8 @@ module.exports = function(app) {
 
   // GET route for getting all of the todos
   app.get("/api/todos", function(req, res) {
-    // findAll returns all entries for a table when used with no arguments
-    db.Todo.findAll().then(function(dbTodo) {
+    // findAll returns all entries for a table when used with no options
+    db.Todo.findAll({}).then(function(dbTodo) {
       // We have access to the todos as an argument inside of the callback function
       res.json(dbTodo);
     });
@@ -54,7 +54,10 @@ module.exports = function(app) {
 
     // Update takes in an object describing the properties we want to update, and
     // we use where to describe which objects we want to update
-    db.Todo.update(req.body, {
+    db.Todo.update({
+      text: req.body.text,
+      complete: req.body.complete
+    }, {
       where: {
         id: req.body.id
       }
