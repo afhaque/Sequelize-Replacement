@@ -55,9 +55,9 @@
 			// Table created
 			return tableName.create({
 				Country: 'Afghanistan',
-				PhoneCode: 'Hancock',
+				PhoneCode: 93,
 				Capital: 'Kabul',
-				IndependenceYear: '1919'
+				IndependenceYear: 1919
 			});
 		});
 		```
@@ -67,7 +67,7 @@
 		```javascript
 		tableName.findAll({
 			where: {
-				IndependenceYear: { $lt: 50 }
+				IndependenceYear: { $gt: new Date().getFullYear() - 50}
 			}
 		});
 		```
@@ -78,7 +78,7 @@
 		tableName.findAll({
 			offset: 2,
 			limit: 2,
-			[sequelize.fn('max', sequelize.col('IndependenceYear')), 'DESC']
+			order: [sequelize.fn('max', sequelize.col('IndependenceYear')), 'DESC']
 		})
 		```
 
